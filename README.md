@@ -1,4 +1,4 @@
-# FinTrack - Personal Bookkeeping App
+# FinTracker - Personal Bookkeeping App
 
 A Next.js application for tracking personal finances, similar to Quicken.
 

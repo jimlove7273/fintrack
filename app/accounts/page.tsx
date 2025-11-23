@@ -114,7 +114,7 @@ export default function AccountsPage() {
                   : 'border-gray-300 bg-gray-50 opacity-75'
               }`}
             >
-              <div className="p-6">
+              <Link href={`/accounts/${account.id}`} className="block p-6">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-bold text-xl text-gray-900">
@@ -140,22 +140,28 @@ export default function AccountsPage() {
                     </p>
                   </div>
                 </div>
+              </Link>
 
-                <div className="mt-6">
-                  <div className="mt-6 flex space-x-3">
-                    <Link
-                      href={`/accounts/${account.id}`}
-                      className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              <div className="px-6 py-1 bg-gray-50 border-t border-gray-200">
+                <div className="flex justify-end">
+                  <Link
+                    href={`/accounts/${account.id}/edit`}
+                    className="inline-flex items-center p-2 text-gray-600 hover:text-indigo-600 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      View Details
-                    </Link>
-                    <Link
-                      href={`/accounts/${account.id}/edit`}
-                      className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Edit Account
-                    </Link>
-                  </div>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
