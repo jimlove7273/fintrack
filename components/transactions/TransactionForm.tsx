@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { TransactionFormData } from '@/types/transaction';
 import { formatCurrency } from '@/utils/formatters';
 
@@ -20,8 +19,6 @@ export default function TransactionForm({
   onCancel,
   isEditing = false,
 }: TransactionFormProps) {
-  const router = useRouter();
-
   const [formData, setFormData] = useState<TransactionFormData>({
     date: initialData?.date || new Date(),
     checkNumber: initialData?.checkNumber || '',

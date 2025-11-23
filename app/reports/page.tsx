@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { mockAccounts } from '@/data/accounts';
 import { mockTransactions } from '@/data/transactions';
 import { formatCurrency } from '@/utils/formatters';

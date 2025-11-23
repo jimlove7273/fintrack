@@ -185,9 +185,12 @@ export default function AccountDetails() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link href="/" className="text-indigo-600 hover:text-indigo-800">
+    <div className="container mx-auto p-4">
+      <div className="mb-2">
+        <Link
+          href="/"
+          className="text-sm text-indigo-600 hover:text-indigo-800"
+        >
           ← Back to Dashboard
         </Link>
       </div>
@@ -212,13 +215,13 @@ export default function AccountDetails() {
         </div>
         <div className="flex space-x-2">
           <button
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="text-sm font-semibold px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
             onClick={() => router.push(`/accounts/${accountId}/edit`)}
           >
             Edit Account
           </button>
           <button
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+            className="text-sm font-semibold px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
             onClick={() =>
               router.push(`/accounts/${accountId}/transactions/new`)
             }
@@ -228,47 +231,8 @@ export default function AccountDetails() {
         </div>
       </div>
 
-      {/* Account Info */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Account Details</h2>
-            <p>
-              <span className="font-medium">Account Number:</span>{' '}
-              {account.accountNumber}
-            </p>
-            <p>
-              <span className="font-medium">Status:</span>
-              <span
-                className={`ml-2 px-2 py-1 rounded text-xs ${
-                  account.isActive
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
-                }`}
-              >
-                {account.isActive ? 'Active' : 'Inactive'}
-              </span>
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Contact Information</h2>
-            <p>
-              <span className="font-medium">Contact Person:</span>{' '}
-              {account.contactPerson}
-            </p>
-            <p>
-              <span className="font-medium">Phone:</span> {account.phone}
-            </p>
-            <p>
-              <span className="font-medium">Email:</span> {account.email}
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Balance Summary */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8">
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold">Account Balances</h2>
           <div className="flex space-x-8">
@@ -286,132 +250,6 @@ export default function AccountDetails() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Search and Filter Section */}
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Filter Transactions</h2>
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="text-indigo-600 hover:text-indigo-800 flex items-center"
-          >
-            {showFilters ? 'Hide Filters' : 'Show Filters'}
-            <svg
-              className={`ml-2 h-5 w-5 transform transition-transform ${
-                showFilters ? 'rotate-180' : ''
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {showFilters && (
-          <div className="flex flex-wrap gap-4 mb-4">
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Start Date
-              </label>
-              <input
-                type="date"
-                name="startDate"
-                value={searchFilters.startDate}
-                onChange={handleSearchChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                End Date
-              </label>
-              <input
-                type="date"
-                name="endDate"
-                value={searchFilters.endDate}
-                onChange={handleSearchChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Check #
-              </label>
-              <input
-                type="text"
-                name="checkNumber"
-                value={searchFilters.checkNumber}
-                onChange={handleSearchChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Payee
-              </label>
-              <input
-                type="text"
-                name="payee"
-                value={searchFilters.payee}
-                onChange={handleSearchChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Category
-              </label>
-              <input
-                type="text"
-                name="category"
-                value={searchFilters.category}
-                onChange={handleSearchChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Description
-              </label>
-              <input
-                type="text"
-                name="description"
-                value={searchFilters.description}
-                onChange={handleSearchChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Amount
-              </label>
-              <input
-                type="number"
-                name="amount"
-                value={searchFilters.amount}
-                onChange={handleSearchChange}
-                step="0.01"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="flex items-end">
-              <button
-                onClick={resetFilters}
-                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Transactions Section */}
@@ -433,20 +271,124 @@ export default function AccountDetails() {
             </div>
 
             <div className="flex items-center">
-              <span className="mr-2 text-sm text-gray-600">
-                Records per page:
-              </span>
+              <span className="mr-2 text-sm text-gray-600">Rec per page:</span>
               <select
                 value={recordsPerPage}
                 onChange={handleRecordsPerPageChange}
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                className="block w-1/2 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
                 <option value={20}>20</option>
                 <option value={50}>50</option>
                 <option value={100}>100</option>
               </select>
             </div>
+
+            <div
+              className="border-dotted border-l border-gray-400 px-3 cursor-pointer"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <svg
+                width="19"
+                height="19"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#616161"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 4H21L14 12V20L10 22V12L3 4Z"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </div>
+        </div>
+
+        {/* Search and Filter Section */}
+        <div className="rounded-lg shadow bg-blue-50">
+          {showFilters && (
+            <div className="flex flex-wrap gap-4 mb-2 p-2">
+              <div className="flex-1 w-full max-w-[140px]">
+                <input
+                  type="date"
+                  name="startDate"
+                  value={searchFilters.startDate}
+                  onChange={handleSearchChange}
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex-1 w-full max-w-[140px]">
+                <input
+                  type="date"
+                  name="endDate"
+                  value={searchFilters.endDate}
+                  onChange={handleSearchChange}
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex-1 w-full max-w-[90px]">
+                <input
+                  type="text"
+                  name="checkNumber"
+                  placeholder="Check #"
+                  value={searchFilters.checkNumber}
+                  onChange={handleSearchChange}
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex-1 w-full max-w-[180px]">
+                <input
+                  type="text"
+                  name="payee"
+                  placeholder="Payee"
+                  value={searchFilters.payee}
+                  onChange={handleSearchChange}
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex-1 w-full max-w-[110px]">
+                <input
+                  type="text"
+                  name="category"
+                  placeholder="Category"
+                  value={searchFilters.category}
+                  onChange={handleSearchChange}
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex-1 w-full max-w-[200px]">
+                <input
+                  type="text"
+                  name="description"
+                  placeholder="Description"
+                  value={searchFilters.description}
+                  onChange={handleSearchChange}
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex-1 w-full max-w-[150px]">
+                <input
+                  type="number"
+                  name="amount"
+                  placeholder="Amount"
+                  value={searchFilters.amount}
+                  onChange={handleSearchChange}
+                  step="0.01"
+                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex items-end">
+                <button
+                  onClick={resetFilters}
+                  className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="overflow-x-auto">
@@ -485,13 +427,13 @@ export default function AccountDetails() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-6 py-3 text-left text-xs font-semibold text-red-600 uppercase tracking-wider bg-gray-50"
                 >
                   Debit (-)
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-6 py-3 text-left text-xs font-semibold text-green-600 uppercase tracking-wider bg-gray-50"
                 >
                   Credit (+)
                 </th>
@@ -580,7 +522,7 @@ export default function AccountDetails() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <button
-                        className="text-indigo-600 hover:text-indigo-900 mr-3"
+                        className="text-indigo-400 hover:text-indigo-900 mr-3"
                         onClick={() =>
                           router.push(
                             `/accounts/${accountId}/transactions/${transaction.id}/edit`,
@@ -596,7 +538,7 @@ export default function AccountDetails() {
                           <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
                       </button>
-                      <button className="text-red-600 hover:text-red-900">
+                      <button className="text-red-400 hover:text-red-900">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-5 w-5"
