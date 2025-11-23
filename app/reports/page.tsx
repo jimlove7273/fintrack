@@ -177,7 +177,7 @@ export default function ReportsPage() {
                     : 0;
 
                 return (
-                  <div key={account.name} className="flex items-center">
+                  <div key={index} className="flex items-center">
                     <div className="w-1/4 text-sm font-medium text-gray-900 truncate">
                       {account.name}
                     </div>
