@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FinTrack - Personal Bookkeeping App
+
+A Next.js application for tracking personal finances, similar to Quicken.
+
+## Features
+
+1. **Account Management**
+
+   - Create, read, update, and delete bank accounts
+   - Each account has detailed information including:
+     - Account name and number
+     - Initial balance
+     - Contact information (person, address, phone, email, etc.)
+     - Active/inactive status (inactive accounts are grayed out)
+
+2. **Transaction Tracking**
+
+   - Add, edit, and delete transactions for each account
+   - Transaction fields include:
+     - Date
+     - Check number
+     - Payee
+     - Category
+     - Description
+     - Debit/Credit amounts
+     - Running balance calculation
+   - Toggle between showing all transactions or only uncleared ones
+   - Reconciliation features (mark transactions as cleared)
+
+3. **Financial Overview**
+
+   - Dashboard showing all accounts with current balances
+   - Total balance across all accounts
+   - Quick access to account details
+
+4. **Reporting**
+
+   - Pie chart showing spending by category
+   - Line graph comparing account balances
+   - Visual representations of financial data
+
+5. **Security**
+
+   - Login/logout functionality
+   - Automatic logout after 20 minutes of inactivity
+
+6. **Data Formatting**
+   - Currency values displayed in thousands format ($#,###,###.00)
+   - Clear distinction between all transactions and cleared transactions using colors
+
+## Project Structure
+
+```
+├── app/                    # Next.js app router pages
+│   ├── accounts/           # Account-related pages
+│   │   ├── [id]/           # Individual account pages
+│   │   │   ├── edit/       # Edit account page
+│   │   │   ├── transactions/
+│   │   │   │   └── new/    # New transaction page
+│   │   │   └── page.tsx    # Account details page
+│   │   └── new/            # New account page
+│   ├── login/              # Login page
+│   ├── reports/            # Reports page
+│   ├── layout.tsx          # Root layout with header
+│   └── page.tsx            # Dashboard page
+├── components/             # React components
+│   ├── accounts/           # Account-related components
+│   ├── layout/             # Layout components (header, etc.)
+│   └── transactions/       # Transaction-related components
+├── data/                   # Mock data
+├── types/                  # TypeScript type definitions
+└── utils/                  # Utility functions
+```
+
+## Technology Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Custom components with Tailwind styling
+- **Data**: Mock data (in a real application, this would connect to a database)
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
+- `/` - Dashboard with account overview
+- `/login` - Login page
+- `/accounts/new` - Create a new account
+- `/accounts/[id]` - View account details and transactions
+- `/accounts/[id]/edit` - Edit an account
+- `/accounts/[accountId]/transactions/new` - Add a new transaction
+- `/reports` - Financial reports and visualizations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data Models
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Account
 
-## Deploy on Vercel
+- id: string
+- name: string
+- accountNumber: string
+- initialBalance: number
+- contactPerson: string
+- address: string
+- city: string
+- state: string
+- zipCode: string
+- contactName: string
+- email: string
+- phone: string
+- fax: string
+- isActive: boolean
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Transaction
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- id: string
+- accountId: string
+- date: Date
+- checkNumber: string
+- payee: string
+- category: string
+- description: string
+- debit: number
+- credit: number
+- isCleared: boolean
+
+## Development Notes
+
+This is a frontend-only implementation with mock data. In a production environment, you would:
+
+1. Connect to a backend API for data persistence
+2. Implement proper authentication and authorization
+3. Add data validation and error handling
+4. Implement proper state management (Redux, Context API, etc.)
+5. Add unit and integration tests
+6. Implement proper form validation
+7. Add accessibility features
+8. Optimize for performance and SEO
