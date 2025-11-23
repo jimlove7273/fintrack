@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { mockAccounts } from '@/data/accounts';
 import { mockTransactions } from '@/data/transactions';
 import { formatCurrency } from '@/utils/formatters';
@@ -9,7 +8,6 @@ import { calculateAccountBalance } from '@/utils/calculations';
 import Link from 'next/link';
 
 export default function TransferPage() {
-  const router = useRouter();
   const [transferData, setTransferData] = useState({
     fromAccount: '',
     toAccount: '',
@@ -124,7 +122,7 @@ export default function TransferPage() {
           {success && (
             <div className="rounded-md bg-green-50 p-4 mb-6">
               <div className="flex">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <svg
                     className="h-5 w-5 text-green-400"
                     viewBox="0 0 20 20"
@@ -149,7 +147,7 @@ export default function TransferPage() {
           {error && (
             <div className="rounded-md bg-red-50 p-4 mb-6">
               <div className="flex">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <svg
                     className="h-5 w-5 text-red-400"
                     viewBox="0 0 20 20"
