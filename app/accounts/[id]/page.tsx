@@ -195,10 +195,10 @@ export default function AccountDetails() {
         </Link>
       </div>
 
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold">{account.name}</h1>
-          <div className="flex items-center mt-1">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
+        <div className="w-full md:w-auto mb-4 md:mb-0">
+          <h1 className="text-2xl md:text-3xl font-bold">{account.name}</h1>
+          <div className="flex flex-wrap items-center mt-1">
             <span className="text-sm text-gray-500 mr-3">
               {account.accountNumber}
             </span>
@@ -213,21 +213,21 @@ export default function AccountDetails() {
             </span>
           </div>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap gap-2">
           <button
-            className="text-sm font-semibold px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="text-sm font-semibold px-3 py-2 md:px-4 md:py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
             onClick={() => router.push(`/accounts/${accountId}/edit`)}
           >
             Edit Account
           </button>
           <button
-            className="text-sm font-semibold px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+            className="text-sm font-semibold px-3 py-2 md:px-4 md:py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             onClick={() => router.push(`/accounts/${accountId}/reconciliation`)}
           >
             Reconcile
           </button>
           <button
-            className="text-sm font-semibold px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+            className="text-sm font-semibold px-3 py-2 md:px-4 md:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
             onClick={() =>
               router.push(`/accounts/${accountId}/transactions/new`)
             }
@@ -238,19 +238,25 @@ export default function AccountDetails() {
       </div>
 
       {/* Balance Summary */}
-      <div className="bg-white rounded-xl shadow p-6 mb-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Account Balances</h2>
-          <div className="flex space-x-8">
+      <div className="bg-white rounded-xl shadow p-4 md:p-6 mb-6 md:mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+          <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-0">
+            Account Balances
+          </h2>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8">
             <div className="text-right">
-              <p className="text-sm text-gray-600">All Transactions</p>
-              <p className="text-2xl font-bold">
+              <p className="text-xs md:text-sm text-gray-600">
+                All Transactions
+              </p>
+              <p className="text-xl md:text-2xl font-bold">
                 {formatCurrency(accountBalance)}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-600">Cleared Transactions</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-xs md:text-sm text-gray-600">
+                Cleared Transactions
+              </p>
+              <p className="text-xl md:text-2xl font-bold text-green-600">
                 {formatCurrency(clearedBalance)}
               </p>
             </div>
@@ -260,11 +266,13 @@ export default function AccountDetails() {
 
       {/* Transactions Section */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Transactions</h2>
-          <div className="flex items-center space-x-4">
+        <div className="px-4 py-3 md:px-6 md:py-4 border-b border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+          <h2 className="text-lg md:text-xl font-semibold">Transactions</h2>
+          <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center">
-              <span className="mr-2 text-sm text-gray-600">Show All:</span>
+              <span className="mr-2 text-xs md:text-sm text-gray-600">
+                Show All:
+              </span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -272,16 +280,18 @@ export default function AccountDetails() {
                   checked={showAll}
                   onChange={() => setShowAll(!showAll)}
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                <div className="w-9 h-5 md:w-11 md:h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 md:after:h-5 md:after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
               </label>
             </div>
 
             <div className="flex items-center">
-              <span className="mr-2 text-sm text-gray-600">Rec per page:</span>
+              <span className="mr-2 text-xs md:text-sm text-gray-600">
+                Rec per page:
+              </span>
               <select
                 value={recordsPerPage}
                 onChange={handleRecordsPerPageChange}
-                className="block w-1/2 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                className="block w-16 md:w-20 pl-2 pr-6 py-1 md:pl-3 md:pr-10 md:py-2 text-xs md:text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
               >
                 <option value={20}>20</option>
                 <option value={50}>50</option>
@@ -290,12 +300,12 @@ export default function AccountDetails() {
             </div>
 
             <div
-              className="border-dotted border-l border-gray-400 px-3 cursor-pointer"
+              className="border-dotted border-l border-gray-400 px-2 md:px-3 cursor-pointer"
               onClick={() => setShowFilters(!showFilters)}
             >
               <svg
-                width="19"
-                height="19"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#616161"
@@ -315,66 +325,66 @@ export default function AccountDetails() {
         {/* Search and Filter Section */}
         <div className="rounded-lg shadow bg-blue-50">
           {showFilters && (
-            <div className="flex flex-wrap gap-4 mb-2 p-2">
-              <div className="flex-1 w-full max-w-[140px]">
+            <div className="flex flex-wrap gap-2 md:gap-4 mb-2 p-2">
+              <div className="flex-1 min-w-[100px] md:min-w-[140px]">
                 <input
                   type="date"
                   name="startDate"
                   value={searchFilters.startDate}
                   onChange={handleSearchChange}
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
-              <div className="flex-1 w-full max-w-[140px]">
+              <div className="flex-1 min-w-[100px] md:min-w-[140px]">
                 <input
                   type="date"
                   name="endDate"
                   value={searchFilters.endDate}
                   onChange={handleSearchChange}
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
-              <div className="flex-1 w-full max-w-[90px]">
+              <div className="flex-1 min-w-[80px] md:min-w-[90px]">
                 <input
                   type="text"
                   name="checkNumber"
                   placeholder="Check #"
                   value={searchFilters.checkNumber}
                   onChange={handleSearchChange}
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
-              <div className="flex-1 w-full max-w-[180px]">
+              <div className="flex-1 min-w-[120px] md:min-w-[180px]">
                 <input
                   type="text"
                   name="payee"
                   placeholder="Payee"
                   value={searchFilters.payee}
                   onChange={handleSearchChange}
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
-              <div className="flex-1 w-full max-w-[110px]">
+              <div className="flex-1 min-w-[90px] md:min-w-[110px]">
                 <input
                   type="text"
                   name="category"
                   placeholder="Category"
                   value={searchFilters.category}
                   onChange={handleSearchChange}
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
-              <div className="flex-1 w-full max-w-[200px]">
+              <div className="flex-1 min-w-[150px] md:min-w-[200px]">
                 <input
                   type="text"
                   name="description"
                   placeholder="Description"
                   value={searchFilters.description}
                   onChange={handleSearchChange}
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
-              <div className="flex-1 w-full max-w-[150px]">
+              <div className="flex-1 min-w-[100px] md:min-w-[150px]">
                 <input
                   type="number"
                   name="amount"
@@ -382,13 +392,13 @@ export default function AccountDetails() {
                   value={searchFilters.amount}
                   onChange={handleSearchChange}
                   step="0.01"
-                  className="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="bg-white mt-1 block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs md:text-sm"
                 />
               </div>
               <div className="flex items-end">
                 <button
                   onClick={resetFilters}
-                  className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="px-3 py-1 md:px-4 md:py-2 border border-gray-300 shadow-sm text-xs md:text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Reset
                 </button>
@@ -403,61 +413,61 @@ export default function AccountDetails() {
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Date
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Check #
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Payee
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Category
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Description
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-red-600 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-red-600 uppercase tracking-wider bg-gray-50"
                 >
                   Debit (-)
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-green-600 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-green-600 uppercase tracking-wider bg-gray-50"
                 >
                   Credit (+)
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Balance
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Actions
                 </th>
@@ -468,7 +478,7 @@ export default function AccountDetails() {
                 <tr>
                   <td
                     colSpan={10}
-                    className="px-6 py-4 text-center text-gray-500"
+                    className="px-4 py-3 md:px-6 md:py-4 text-center text-gray-500"
                   >
                     No transactions found
                   </td>
@@ -479,22 +489,22 @@ export default function AccountDetails() {
                     key={transaction.id}
                     className={transaction.isCleared ? 'bg-green-50' : ''}
                   >
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                       {formatDate(new Date(transaction.date))}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                       {transaction.checkNumber || '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
                       {transaction.payee}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                       {transaction.category}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 text-xs md:text-sm text-gray-500">
                       {transaction.description}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       {transaction.debit > 0 ? (
                         <span className="text-red-600">
                           {formatCurrency(transaction.debit)}
@@ -503,7 +513,7 @@ export default function AccountDetails() {
                         ''
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       {transaction.credit > 0 ? (
                         <span className="text-green-600">
                           {formatCurrency(transaction.credit)}
@@ -512,10 +522,10 @@ export default function AccountDetails() {
                         ''
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       {formatCurrency(transaction.runningBalance)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap">
                       <span
                         className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                           transaction.isCleared
@@ -526,9 +536,9 @@ export default function AccountDetails() {
                         {transaction.isCleared ? 'Cleared' : 'Pending'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       <button
-                        className="text-indigo-400 hover:text-indigo-900 mr-3"
+                        className="text-indigo-400 hover:text-indigo-900 mr-2 md:mr-3"
                         onClick={() =>
                           router.push(
                             `/accounts/${accountId}/transactions/${transaction.id}/edit`,
@@ -537,7 +547,7 @@ export default function AccountDetails() {
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="h-4 w-4 md:h-5 md:w-5"
                           viewBox="0 0 20 20"
                           fill="currentColor"
                         >
@@ -547,7 +557,7 @@ export default function AccountDetails() {
                       <button className="text-red-400 hover:text-red-900">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="h-4 w-4 md:h-5 md:w-5"
                           viewBox="0 0 20 20"
                           fill="currentColor"
                         >
@@ -568,8 +578,8 @@ export default function AccountDetails() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-            <div className="text-sm text-gray-700">
+          <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div className="text-xs md:text-sm text-gray-700">
               Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
               <span className="font-medium">
                 {Math.min(
@@ -581,11 +591,11 @@ export default function AccountDetails() {
               <span className="font-medium">{searchedTransactions.length}</span>{' '}
               results
             </div>
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-1 md:gap-2">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className={`px-4 py-2 text-sm font-medium rounded-md ${
+                className={`px-2 py-1 md:px-4 md:py-2 text-xs md:text-sm font-medium rounded-md ${
                   currentPage === 1
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -607,7 +617,7 @@ export default function AccountDetails() {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-4 py-2 text-sm font-medium rounded-md ${
+                      className={`px-2 py-1 md:px-4 md:py-2 text-xs md:text-sm font-medium rounded-md ${
                         currentPage === page
                           ? 'bg-indigo-600 text-white'
                           : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -622,7 +632,7 @@ export default function AccountDetails() {
                   return (
                     <span
                       key={page}
-                      className="px-2 py-2 text-sm text-gray-500"
+                      className="px-1 py-1 md:px-2 md:py-2 text-xs md:text-sm text-gray-500"
                     >
                       ...
                     </span>
@@ -636,7 +646,7 @@ export default function AccountDetails() {
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
-                className={`px-4 py-2 text-sm font-medium rounded-md ${
+                className={`px-2 py-1 md:px-4 md:py-2 text-xs md:text-sm font-medium rounded-md ${
                   currentPage === totalPages
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'

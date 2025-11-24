@@ -4,10 +4,55 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+const NavContent = ({
+  pathname,
+  navLinks,
+  onClose,
+}: {
+  pathname: string | null;
+  navLinks: { href: string; label: string; icon: string }[];
+  onClose?: () => void;
+}) => (
+  <nav className="flex-1 px-4 py-6">
+    {navLinks.map((link) => (
+      <Link
+        key={link.href}
+        href={link.href}
+        className={`flex items-center px-4 py-3 rounded-lg mt-2 ${
+          pathname === link.href ||
+          (link.href === '/accounts' &&
+            pathname?.startsWith('/accounts/') &&
+            !pathname?.startsWith('/accounts/transfer')) ||
+          (link.href === '/' && pathname === '/')
+            ? 'bg-indigo-100 text-indigo-700'
+            : 'text-gray-600 hover:bg-gray-100'
+        }`}
+        onClick={onClose}
+      >
+        <svg
+          className="h-5 w-5 mr-3"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d={link.icon}
+          />
+        </svg>
+        {link.label}
+      </Link>
+    ))}
+  </nav>
+);
+
 export default function Header({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(true); // For demo purposes, default to true
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -53,10 +98,33 @@ export default function Header({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
+  const navLinks = [
+    {
+      href: '/',
+      label: 'Dashboard',
+      icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    },
+    {
+      href: '/accounts',
+      label: 'Accounts',
+      icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    },
+    {
+      href: '/accounts/transfer',
+      label: 'Transfer Money',
+      icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
+    },
+    {
+      href: '/reports',
+      label: 'Reports',
+      icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    },
+  ];
+
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className="flex flex-col w-64 bg-white shadow-md">
+      {/* Desktop Sidebar - hidden on mobile */}
+      <div className="hidden md:flex flex-col w-64 bg-white shadow-md">
         <div className="flex items-center justify-center h-16 bg-indigo-600">
           <div className="flex items-center space-x-2">
             <svg
@@ -75,110 +143,100 @@ export default function Header({ children }: { children: React.ReactNode }) {
             <span className="text-white text-xl font-bold">FinTracker</span>
           </div>
         </div>
-        <nav className="flex-1 px-4 py-6">
-          <Link
-            href="/"
-            className={`flex items-center px-4 py-3 rounded-lg ${
-              pathname === '/'
-                ? 'bg-indigo-100 text-indigo-700'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            <svg
-              className="h-5 w-5 mr-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-              />
-            </svg>
-            Dashboard
-          </Link>
-          <Link
-            href="/accounts"
-            className={`flex items-center px-4 py-3 rounded-lg mt-2 ${
-              pathname === '/accounts' ||
-              (pathname?.startsWith('/accounts/') &&
-                !pathname?.startsWith('/accounts/transfer'))
-                ? 'bg-indigo-100 text-indigo-700'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            <svg
-              className="h-5 w-5 mr-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-              />
-            </svg>
-            Accounts
-          </Link>
-          <Link
-            href="/accounts/transfer"
-            className={`flex items-center px-4 py-3 rounded-lg mt-2 ${
-              pathname === '/accounts/transfer'
-                ? 'bg-indigo-100 text-indigo-700'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            <svg
-              className="h-5 w-5 mr-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-              />
-            </svg>
-            Transfer Money
-          </Link>
-          <Link
-            href="/reports"
-            className={`flex items-center px-4 py-3 rounded-lg mt-2 ${
-              pathname === '/reports'
-                ? 'bg-indigo-100 text-indigo-700'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            <svg
-              className="h-5 w-5 mr-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            </svg>
-            Reports
-          </Link>
-        </nav>
+        <NavContent pathname={pathname} navLinks={navLinks} />
         <div className="px-4 py-3 text-xs text-gray-500 border-t border-gray-200">
           Finance Manager v1.0
         </div>
       </div>
 
+      {/* Mobile header with hamburger menu */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-indigo-600 text-white">
+        <div className="flex items-center space-x-2">
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+            />
+          </svg>
+          <span className="text-lg font-bold">FinTracker</span>
+        </div>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 rounded-md hover:bg-indigo-700 focus:outline-none"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            {isMobileMenuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile menu overlay */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-50">
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50"
+            onClick={() => setIsMobileMenuOpen(false)}
+          ></div>
+          <div className="relative flex flex-col w-64 h-full bg-white shadow-xl">
+            <div className="flex items-center justify-center h-16 bg-indigo-600">
+              <div className="flex items-center space-x-2">
+                <svg
+                  className="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
+                </svg>
+                <span className="text-white text-xl font-bold">FinTracker</span>
+              </div>
+            </div>
+            <NavContent
+              pathname={pathname}
+              navLinks={navLinks}
+              onClose={() => setIsMobileMenuOpen(false)}
+            />
+            <div className="px-4 py-3 text-xs text-gray-500 border-t border-gray-200">
+              Finance Manager v1.0
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex justify-end items-center p-4 bg-white shadow">
+        <header className="hidden md:flex justify-end items-center p-4 bg-white shadow">
           <div className="flex items-center space-x-4">
             <span className="text-gray-700">Hello, User</span>
             <button

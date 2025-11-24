@@ -28,14 +28,16 @@ export default function Dashboard() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-6">Financial Dashboard</h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-6">
+        Financial Dashboard
+      </h1>
 
       {/* NET WORTH Card */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-blue-50 text-blue-800 rounded-lg shadow p-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-6">
+        <div className="bg-blue-50 text-blue-800 rounded-lg shadow p-4 md:p-6">
           <div className="flex items-center mb-2">
             <svg
-              className="h-6 w-6 mr-2 text-blue-600"
+              className="h-5 w-5 md:h-6 md:w-6 mr-2 text-blue-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -47,10 +49,12 @@ export default function Dashboard() {
                 d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <h2 className="text-lg font-semibold">NET WORTH</h2>
+            <h2 className="text-base md:text-lg font-semibold">NET WORTH</h2>
           </div>
-          <p className="text-3xl font-bold">{formatCurrency(totalBalance)}</p>
-          <div className="mt-4 flex justify-between text-sm">
+          <p className="text-xl md:text-3xl font-bold">
+            {formatCurrency(totalBalance)}
+          </p>
+          <div className="mt-3 md:mt-4 flex justify-between text-xs md:text-sm">
             <div>
               <p className="text-blue-600">Accounts</p>
               <p className="font-medium">{accounts.length}</p>
@@ -63,10 +67,10 @@ export default function Dashboard() {
         </div>
 
         {/* Additional Stats Cards */}
-        <div className="bg-green-50 text-green-800 rounded-lg shadow p-6">
+        <div className="bg-green-50 text-green-800 rounded-lg shadow p-4 md:p-6">
           <div className="flex items-center mb-2">
             <svg
-              className="h-6 w-6 mr-2 text-green-600"
+              className="h-5 w-5 md:h-6 md:w-6 mr-2 text-green-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -78,24 +82,26 @@ export default function Dashboard() {
                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
               />
             </svg>
-            <h2 className="text-lg font-semibold">Total Accounts</h2>
+            <h2 className="text-base md:text-lg font-semibold">
+              Total Accounts
+            </h2>
           </div>
-          <p className="text-3xl font-bold">{accounts.length}</p>
-          <div className="mt-4">
-            <p className="text-sm text-green-600">
+          <p className="text-xl md:text-3xl font-bold">{accounts.length}</p>
+          <div className="mt-3 md:mt-4">
+            <p className="text-xs md:text-sm text-green-600">
               <span className="text-green-800">●</span> Active: {activeAccounts}
             </p>
-            <p className="text-sm text-green-600">
+            <p className="text-xs md:text-sm text-green-600">
               <span className="text-green-800">●</span> Inactive:{' '}
               {accounts.length - activeAccounts}
             </p>
           </div>
         </div>
 
-        <div className="bg-amber-50 text-amber-800 rounded-lg shadow p-6">
+        <div className="bg-amber-50 text-amber-800 rounded-lg shadow p-4 md:p-6">
           <div className="flex items-center mb-2">
             <svg
-              className="h-6 w-6 mr-2 text-amber-600"
+              className="h-5 w-5 md:h-6 md:w-6 mr-2 text-amber-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -107,26 +113,28 @@ export default function Dashboard() {
                 d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
               />
             </svg>
-            <h2 className="text-lg font-semibold">Quick Actions</h2>
+            <h2 className="text-base md:text-lg font-semibold">
+              Quick Actions
+            </h2>
           </div>
           <Link
             href="/accounts/transfer"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-amber-700 bg-white hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 mt-2"
+            className="inline-flex items-center px-3 py-1 md:px-4 md:py-2 border border-transparent text-xs md:text-sm font-medium rounded-md shadow-sm text-amber-700 bg-white hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 mt-2"
           >
             Transfer Money
           </Link>
-          <p className="text-sm text-amber-600 mt-3">
+          <p className="text-xs md:text-sm text-amber-600 mt-2 md:mt-3">
             Move funds between accounts
           </p>
         </div>
       </div>
 
       {/* Accounts Section */}
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-4">
+      <div className="mb-4 md:mb-6">
+        <div className="flex justify-between items-center mb-3 md:mb-4">
           <div className="flex items-center">
             <svg
-              className="h-5 w-5 mr-2 text-indigo-600"
+              className="h-4 w-4 md:h-5 md:w-5 mr-2 text-indigo-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -138,11 +146,11 @@ export default function Dashboard() {
                 d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
               />
             </svg>
-            <h2 className="text-xl font-bold">Your Accounts</h2>
+            <h2 className="text-lg md:text-xl font-bold">Your Accounts</h2>
           </div>
           <Link
             href="/accounts/new"
-            className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center px-2 py-1 md:px-3 md:py-1 border border-transparent text-xs md:text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Add Account
           </Link>
@@ -161,10 +169,13 @@ export default function Dashboard() {
                   account.isActive ? 'bg-white' : 'bg-gray-50 opacity-75'
                 }`}
               >
-                <Link href={`/accounts/${account.id}`} className="block p-4">
+                <Link
+                  href={`/accounts/${account.id}`}
+                  className="block p-3 md:p-4"
+                >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-bold text-gray-900">
+                      <h3 className="font-bold text-gray-900 text-sm md:text-base">
                         {account.name}
                       </h3>
                       <p className="text-xs text-gray-500 mt-1">
@@ -172,7 +183,7 @@ export default function Dashboard() {
                       </p>
                     </div>
                     <span
-                      className={`px-2 py-1 text-xs rounded-full ${
+                      className={`px-1.5 py-0.5 md:px-2 md:py-1 text-xs rounded-full ${
                         account.isActive
                           ? 'bg-green-100 text-green-800'
                           : 'bg-red-100 text-red-800'
@@ -182,14 +193,17 @@ export default function Dashboard() {
                     </span>
                   </div>
 
-                  <div className="mt-3">
-                    <p className="text-lg font-bold text-gray-900">
+                  <div className="mt-2 md:mt-3">
+                    <p className="text-base md:text-lg font-bold text-gray-900">
                       {formatCurrency(balance)}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {account.contactPerson || 'No contact'}
                     </p>
                   </div>
                 </Link>
 
-                <div className="px-4 py-2 bg-gray-100 border-t border-gray-200">
+                <div className="px-3 py-2 md:px-4 md:py-3 bg-gray-50 border-t border-gray-200">
                   <div className="flex justify-end">
                     <Link
                       href={`/accounts/${account.id}/edit`}

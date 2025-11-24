@@ -126,12 +126,12 @@ export default function ReconciliationPage() {
         </Link>
       </div>
 
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
+        <div className="w-full md:w-auto mb-4 md:mb-0">
+          <h1 className="text-2xl md:text-3xl font-bold">
             {account.name} - Reconciliation
           </h1>
-          <div className="flex items-center mt-1">
+          <div className="flex flex-wrap items-center mt-1">
             <span className="text-sm text-gray-500 mr-3">
               {account.accountNumber}
             </span>
@@ -149,10 +149,12 @@ export default function ReconciliationPage() {
       </div>
 
       {/* Reconciliation Summary Card */}
-      <div className="bg-white rounded-xl shadow p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Reconciliation Summary</h2>
+      <div className="bg-white rounded-xl shadow p-4 md:p-6 mb-6 md:mb-8">
+        <h2 className="text-lg md:text-xl font-semibold mb-4">
+          Reconciliation Summary
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {/* Statement Balance Input */}
           <div className="border border-gray-200 rounded-lg p-4">
             <h3 className="font-medium text-gray-700 mb-2">
@@ -165,7 +167,7 @@ export default function ReconciliationPage() {
                 step="0.01"
                 value={statementBalance}
                 onChange={(e) => setStatementBalance(e.target.value)}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-2 py-1 md:px-3 md:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm md:text-base"
                 placeholder="0.00"
               />
             </div>
@@ -177,7 +179,7 @@ export default function ReconciliationPage() {
           {/* Book Balance */}
           <div className="border border-gray-200 rounded-lg p-4">
             <h3 className="font-medium text-gray-700 mb-2">Book Balance</h3>
-            <p className="text-2xl font-bold text-indigo-600">
+            <p className="text-xl md:text-2xl font-bold text-indigo-600">
               {formatCurrency(bookBalance)}
             </p>
             <p className="text-xs text-gray-500 mt-1">
@@ -197,7 +199,7 @@ export default function ReconciliationPage() {
           >
             <h3 className="font-medium text-gray-700 mb-2">Difference</h3>
             <p
-              className={`text-2xl font-bold ${
+              className={`text-xl md:text-2xl font-bold ${
                 difference === 0
                   ? 'text-green-600'
                   : difference > 0
@@ -218,11 +220,11 @@ export default function ReconciliationPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-4 md:mt-6 flex flex-wrap gap-2 md:gap-3">
           <button
             onClick={markAsCleared}
             disabled={selectedTransactions.length === 0}
-            className={`px-4 py-2 rounded-md font-medium ${
+            className={`px-3 py-2 md:px-4 md:py-2 rounded-md font-medium text-sm md:text-base ${
               selectedTransactions.length === 0
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-indigo-600 text-white hover:bg-indigo-700'
@@ -236,7 +238,7 @@ export default function ReconciliationPage() {
               setStatementBalance('');
               setSelectedTransactions([]);
             }}
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md font-medium hover:bg-gray-300"
+            className="px-3 py-2 md:px-4 md:py-2 bg-gray-200 text-gray-800 rounded-md font-medium text-sm md:text-base hover:bg-gray-300"
           >
             Reset
           </button>
@@ -251,7 +253,7 @@ export default function ReconciliationPage() {
                 );
               }
             }}
-            className={`px-4 py-2 rounded-md font-medium ${
+            className={`px-3 py-2 md:px-4 md:py-2 rounded-md font-medium text-sm md:text-base ${
               difference === 0
                 ? 'bg-green-600 text-white hover:bg-green-700'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -265,11 +267,15 @@ export default function ReconciliationPage() {
 
       {/* Transactions Section */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Uncleared Transactions</h2>
-          <div className="flex items-center space-x-4">
+        <div className="px-4 py-3 md:px-6 md:py-4 border-b border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+          <h2 className="text-lg md:text-xl font-semibold">
+            Uncleared Transactions
+          </h2>
+          <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center">
-              <span className="mr-2 text-sm text-gray-600">Show Cleared:</span>
+              <span className="mr-2 text-xs md:text-sm text-gray-600">
+                Show Cleared:
+              </span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -277,11 +283,11 @@ export default function ReconciliationPage() {
                   checked={showClearedOnly}
                   onChange={() => setShowClearedOnly(!showClearedOnly)}
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                <div className="w-9 h-5 md:w-11 md:h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 md:after:h-5 md:after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
               </label>
             </div>
 
-            <div className="text-sm text-gray-600">
+            <div className="text-xs md:text-sm text-gray-600">
               Selected: {selectedTransactions.length}
             </div>
           </div>
@@ -293,7 +299,7 @@ export default function ReconciliationPage() {
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   <input
                     type="checkbox"
@@ -316,43 +322,43 @@ export default function ReconciliationPage() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Date
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Check #
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Payee
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Description
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-red-600 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-red-600 uppercase tracking-wider bg-gray-50"
                 >
                   Debit (-)
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-green-600 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-green-600 uppercase tracking-wider bg-gray-50"
                 >
                   Credit (+)
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                  className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                 >
                   Balance
                 </th>
@@ -363,7 +369,7 @@ export default function ReconciliationPage() {
                 <tr>
                   <td
                     colSpan={8}
-                    className="px-6 py-4 text-center text-gray-500"
+                    className="px-4 py-3 md:px-6 md:py-4 text-center text-gray-500"
                   >
                     {showClearedOnly
                       ? 'No cleared transactions found'
@@ -382,7 +388,7 @@ export default function ReconciliationPage() {
                         : ''
                     }`}
                   >
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap">
                       <input
                         type="checkbox"
                         className="h-4 w-4 text-indigo-600 rounded"
@@ -390,19 +396,19 @@ export default function ReconciliationPage() {
                         onChange={() => handleTransactionSelect(transaction.id)}
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                       {formatDate(new Date(transaction.date))}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                       {transaction.checkNumber || '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
                       {transaction.payee}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-4 py-2 md:px-6 md:py-4 text-xs md:text-sm text-gray-500">
                       {transaction.description}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       {transaction.debit > 0 ? (
                         <span className="text-red-600">
                           {formatCurrency(transaction.debit)}
@@ -411,7 +417,7 @@ export default function ReconciliationPage() {
                         ''
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       {transaction.credit > 0 ? (
                         <span className="text-green-600">
                           {formatCurrency(transaction.credit)}
@@ -420,7 +426,7 @@ export default function ReconciliationPage() {
                         ''
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                       {formatCurrency(transaction.runningBalance)}
                     </td>
                   </tr>
