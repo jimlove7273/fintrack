@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 const NavContent = ({
   pathname,
@@ -49,52 +50,13 @@ const NavContent = ({
 );
 
 export default function Header({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // For demo purposes, default to true
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    router.push('/login');
-  };
-
-  // Auto-logout after 20 minutes of inactivity
-  useEffect(() => {
-    let lastActivity = Date.now();
-
-    const interval = setInterval(() => {
-      const now = Date.now();
-      const inactiveTime = now - lastActivity;
-
-      // 20 minutes in milliseconds
-      if (inactiveTime > 20 * 60 * 1000) {
-        handleLogout();
-      }
-    }, 60000); // Check every minute
-
-    // Update last activity on user interaction
-    const handleUserActivity = () => {
-      lastActivity = Date.now();
-    };
-
-    // Add event listeners for user activity
-    window.addEventListener('mousemove', handleUserActivity);
-    window.addEventListener('keypress', handleUserActivity);
-    window.addEventListener('click', handleUserActivity);
-    window.addEventListener('scroll', handleUserActivity);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('mousemove', handleUserActivity);
-      window.removeEventListener('keypress', handleUserActivity);
-      window.removeEventListener('click', handleUserActivity);
-      window.removeEventListener('scroll', handleUserActivity);
-    };
-  }, []);
-
-  // Don't show header on login page
-  if (pathname === '/login') {
+  // Don't show header on login page or when not authenticated
+  if (pathname === '/login' || !isAuthenticated) {
     return <>{children}</>;
   }
 
@@ -224,7 +186,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
           <div className="flex items-center space-x-4">
             <span className="text-gray-700">Hello, User</span>
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Logout

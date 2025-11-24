@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
+  const { login } = useAuth();
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     username: '',
@@ -19,7 +21,7 @@ export default function LoginPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Simple validation
@@ -28,10 +30,13 @@ export default function LoginPage() {
       return;
     }
 
-    // In a real app, this would be an API call
-    // For demo purposes, we'll just redirect to dashboard
-    console.log('Login attempt with:', credentials);
-    router.push('/');
+    // Attempt to login
+    const success = await login(credentials.username, credentials.password);
+    if (success) {
+      router.push('/');
+    } else {
+      setError('Invalid username or password');
+    }
   };
 
   return (

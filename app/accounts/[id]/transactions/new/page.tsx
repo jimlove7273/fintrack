@@ -1,6 +1,7 @@
 import NewTransactionClient from '@/components/transactions/NewTransactionClient';
 import { mockAccounts } from '@/data/accounts';
 import { redirect } from 'next/navigation';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 export default async function NewTransactionPage({
   params,
@@ -19,8 +20,10 @@ export default async function NewTransactionPage({
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <NewTransactionClient accountId={id} accountName={account.name} />
-    </div>
+    <ProtectedRoute>
+      <div className="container mx-auto px-4 py-8">
+        <NewTransactionClient accountId={id} accountName={account.name} />
+      </div>
+    </ProtectedRoute>
   );
 }

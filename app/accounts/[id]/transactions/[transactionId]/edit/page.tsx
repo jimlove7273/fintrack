@@ -2,6 +2,7 @@ import EditTransactionClient from '@/components/transactions/EditTransactionClie
 import { mockAccounts } from '@/data/accounts';
 import { mockTransactions } from '@/data/transactions';
 import { redirect } from 'next/navigation';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 export default async function EditTransactionPage({
   params,
@@ -42,12 +43,14 @@ export default async function EditTransactionPage({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <EditTransactionClient
-        accountId={id}
-        accountName={account.name}
-        initialData={initialData}
-      />
-    </div>
+    <ProtectedRoute>
+      <div className="container mx-auto px-4 py-8">
+        <EditTransactionClient
+          accountId={id}
+          accountName={account.name}
+          initialData={initialData}
+        />
+      </div>
+    </ProtectedRoute>
   );
 }
