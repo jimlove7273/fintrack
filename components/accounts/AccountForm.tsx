@@ -92,7 +92,7 @@ export default function AccountForm({
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -110,7 +110,7 @@ export default function AccountForm({
                     value={formData.accountNumber}
                     onChange={handleChange}
                     required
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -128,7 +128,7 @@ export default function AccountForm({
                     value={formData.initialBalance}
                     onChange={handleChange}
                     step="0.01"
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -146,7 +146,7 @@ export default function AccountForm({
                       id="isActive"
                       checked={formData.isActive}
                       onChange={handleChange}
-                      className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-2 border-gray-300 rounded"
                     />
                     <label
                       htmlFor="isActive"
@@ -170,7 +170,7 @@ export default function AccountForm({
                     id="contactPerson"
                     value={formData.contactPerson}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -187,7 +187,7 @@ export default function AccountForm({
                     id="address"
                     value={formData.address}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -204,7 +204,7 @@ export default function AccountForm({
                     id="city"
                     value={formData.city}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -221,7 +221,7 @@ export default function AccountForm({
                     id="state"
                     value={formData.state}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -238,7 +238,7 @@ export default function AccountForm({
                     id="zipCode"
                     value={formData.zipCode}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -255,7 +255,7 @@ export default function AccountForm({
                     id="contactName"
                     value={formData.contactName}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -272,7 +272,7 @@ export default function AccountForm({
                     id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -289,7 +289,7 @@ export default function AccountForm({
                     id="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
 
@@ -306,7 +306,7 @@ export default function AccountForm({
                     id="fax"
                     value={formData.fax}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="mt-1 block w-full p-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
                   />
                 </div>
               </div>

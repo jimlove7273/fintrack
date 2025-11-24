@@ -239,11 +239,11 @@ export default function AccountDetails() {
 
       {/* Balance Summary */}
       <div className="bg-white rounded-xl shadow p-4 md:p-6 mb-6 md:mb-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+        <div className="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start">
           <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-0">
             Account Balances
           </h2>
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+          <div className="flex flex-row gap-4 md:gap-8">
             <div className="text-right">
               <p className="text-xs md:text-sm text-gray-600">
                 All Transactions
