@@ -30,6 +30,15 @@ export const calculateClearedBalance = (
   );
 };
 
+export const calculateClearedBalanceWithInitial = (
+  accountId: string,
+  initialBalance: number,
+  transactions: Transaction[] = mockTransactions,
+): number => {
+  const clearedBalance = calculateClearedBalance(accountId, transactions);
+  return initialBalance + clearedBalance;
+};
+
 export const getTransactionsWithRunningBalance = (
   accountId: string,
   transactions: Transaction[] = mockTransactions,

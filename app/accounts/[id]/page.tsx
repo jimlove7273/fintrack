@@ -221,6 +221,12 @@ export default function AccountDetails() {
             Edit Account
           </button>
           <button
+            className="text-sm font-semibold px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+            onClick={() => router.push(`/accounts/${accountId}/reconciliation`)}
+          >
+            Reconcile
+          </button>
+          <button
             className="text-sm font-semibold px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
             onClick={() =>
               router.push(`/accounts/${accountId}/transactions/new`)
