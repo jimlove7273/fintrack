@@ -61,11 +61,11 @@ export default function AccountForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 bg-white p-10">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {/* Left Column - Form Info */}
-        <div className="md:col-span-1">
-          <div className="bg-gray-50 rounded-lg p-6">
+        <div className="md:col-span-1 mx-auto">
+          <div className="bg-gray-50 rounded-lg p-6 shadow-2xl">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {isEditing ? 'Edit Account' : 'Create Account'}
             </h3>
@@ -76,7 +76,7 @@ export default function AccountForm({
             </p>
             <div className="mt-6 space-y-4">
               <div className="flex items-center">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                <div className="shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
                   <svg
                     className="h-4 w-4 text-indigo-600"
                     fill="none"
@@ -103,7 +103,7 @@ export default function AccountForm({
         </div>
 
         {/* Right Column - Form Fields */}
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 ml-0">
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="sm:col-span-1">

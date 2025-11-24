@@ -113,7 +113,7 @@ export default function NewTransactionForm({
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {/* Left Column - Form Info */}
         <div className="md:col-span-1">
-          <div className="bg-gray-50 rounded-lg p-6">
+          <div className="bg-gray-50 shadow-2xl rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               New Transaction
             </h3>
@@ -122,7 +122,7 @@ export default function NewTransactionForm({
             </p>
             <div className="mt-6 space-y-4">
               <div className="flex items-center">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                <div className="shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
                   <svg
                     className="h-4 w-4 text-indigo-600"
                     fill="none"
