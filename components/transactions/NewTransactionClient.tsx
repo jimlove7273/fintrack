@@ -1,25 +1,38 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import TransactionForm from '@/components/transactions/TransactionForm';
-import { TransactionFormData } from '@/types/transaction';
+import NewTransactionForm from './NewTransactionForm';
 
-interface EditTransactionClientProps {
-  accountId: string;
-  accountName: string;
-  initialData: TransactionFormData;
+interface NewTransactionFormData {
+  date: Date;
+  checkNumber: string;
+  payee: string;
+  category: string;
+  description: string;
+  debit: number;
+  credit: number;
+  isCleared: boolean;
+  isRecurring: boolean;
+  recurrenceType: 'endDate' | 'count';
+  endDate?: string;
+  repeatCount?: number;
+  endOfMonth: boolean;
 }
 
-export default function EditTransactionClient({
+interface NewTransactionClientProps {
+  accountId: string;
+  accountName: string;
+}
+
+export default function NewTransactionClient({
   accountId,
   accountName,
-  initialData,
-}: EditTransactionClientProps) {
+}: NewTransactionClientProps) {
   const router = useRouter();
 
-  const handleSubmit = (data: TransactionFormData) => {
+  const handleSubmit = (data: NewTransactionFormData) => {
     // In a real app, this would be an API call
-    console.log('Updating transaction:', data);
+    console.log('Creating transaction(s):', data);
     // Redirect to account details
     router.push(`/accounts/${accountId}`);
   };
@@ -58,7 +71,7 @@ export default function EditTransactionClient({
             clipRule="evenodd"
           />
         </svg>
-        <span className="text-gray-900 font-medium">Edit Transaction</span>
+        <span className="text-gray-900 font-medium">New Transaction</span>
       </nav>
 
       {/* Page Header */}
@@ -67,10 +80,10 @@ export default function EditTransactionClient({
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
-                Edit Transaction
+                New Transaction
               </h1>
               <p className="text-sm text-gray-500 mt-1">
-                Modify the details for this transaction
+                Add a new transaction or recurring transactions
               </p>
             </div>
             <div className="flex space-x-3">
@@ -102,8 +115,8 @@ export default function EditTransactionClient({
                 />
               </svg>
             </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-semibold text-gray-600">Account</h3>
+            <div className="ml-4">
+              <h3 className="text-sm font-medium text-gray-900">Account</h3>
               <p className="text-sm text-gray-500">{accountName}</p>
             </div>
           </div>
@@ -117,16 +130,14 @@ export default function EditTransactionClient({
             Transaction Details
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Update the information below
+            Enter the information below
           </p>
         </div>
         <div className="px-6 py-6">
-          <TransactionForm
+          <NewTransactionForm
             accountId={accountId}
-            initialData={initialData}
             onSubmit={handleSubmit}
             onCancel={handleCancel}
-            isEditing={true}
           />
         </div>
       </div>

@@ -4,32 +4,43 @@ import { useState } from 'react';
 import { TransactionFormData } from '@/types/transaction';
 import { formatCurrency } from '@/utils/formatters';
 
-interface TransactionFormProps {
-  accountId: string;
-  initialData?: TransactionFormData;
-  onSubmit: (data: TransactionFormData) => void;
-  onCancel: () => void;
-  isEditing?: boolean;
+interface NewTransactionFormData extends TransactionFormData {
+  isRecurring: boolean;
+  recurrenceType: 'endDate' | 'count';
+  endDate?: string;
+  repeatCount?: number;
+  endOfMonth: boolean;
 }
 
-export default function TransactionForm({
+interface NewTransactionFormProps {
+  accountId: string;
+  onSubmit: (data: NewTransactionFormData) => void;
+  onCancel: () => void;
+}
+
+export default function NewTransactionForm({
   accountId,
-  initialData,
   onSubmit,
   onCancel,
-  isEditing = false,
-}: TransactionFormProps) {
+}: NewTransactionFormProps) {
   const [formData, setFormData] = useState<TransactionFormData>({
-    date: initialData?.date || new Date(),
-    checkNumber: initialData?.checkNumber || '',
-    payee: initialData?.payee || '',
-    category: initialData?.category || '',
-    description: initialData?.description || '',
-    debit: initialData?.debit || 0,
-    credit: initialData?.credit || 0,
-    isCleared:
-      initialData?.isCleared !== undefined ? initialData.isCleared : false,
+    date: new Date(),
+    checkNumber: '',
+    payee: '',
+    category: '',
+    description: '',
+    debit: 0,
+    credit: 0,
+    isCleared: false,
   });
+
+  const [isRecurring, setIsRecurring] = useState(false);
+  const [recurrenceType, setRecurrenceType] = useState<'endDate' | 'count'>(
+    'endDate',
+  );
+  const [endDate, setEndDate] = useState('');
+  const [repeatCount, setRepeatCount] = useState(1);
+  const [endOfMonth, setEndOfMonth] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -61,9 +72,40 @@ export default function TransactionForm({
     }
   };
 
+  const handleRecurrenceChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value, type } = e.target;
+
+    if (type === 'checkbox') {
+      const target = e.target as HTMLInputElement;
+      if (name === 'isRecurring') {
+        setIsRecurring(target.checked);
+      } else if (name === 'endOfMonth') {
+        setEndOfMonth(target.checked);
+      }
+    } else if (name === 'recurrenceType') {
+      setRecurrenceType(value as 'endDate' | 'count');
+    } else if (name === 'endDate') {
+      setEndDate(value);
+    } else if (name === 'repeatCount') {
+      setRepeatCount(parseInt(value) || 1);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const submissionData = {
+      ...formData,
+      isRecurring,
+      recurrenceType,
+      endDate: recurrenceType === 'endDate' ? endDate : undefined,
+      repeatCount: recurrenceType === 'count' ? repeatCount : undefined,
+      endOfMonth,
+    };
+
+    onSubmit(submissionData);
   };
 
   return (
@@ -73,12 +115,10 @@ export default function TransactionForm({
         <div className="md:col-span-1">
           <div className="bg-gray-50 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {isEditing ? 'Edit Transaction' : 'New Transaction'}
+              New Transaction
             </h3>
             <p className="text-sm text-gray-600">
-              {isEditing
-                ? 'Update the details for this transaction.'
-                : 'Enter the details for the new transaction.'}
+              Enter the details for the new transaction.
             </p>
             <div className="mt-6 space-y-4">
               <div className="flex items-center">
@@ -298,6 +338,137 @@ export default function TransactionForm({
                 </div>
               </div>
             </div>
+
+            {/* Recurring Transaction Section */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="isRecurring"
+                  id="isRecurring"
+                  checked={isRecurring}
+                  onChange={handleRecurrenceChange}
+                  className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="isRecurring"
+                  className="ml-3 block text-sm font-semibold text-gray-600"
+                >
+                  This is a recurring transaction
+                </label>
+              </div>
+
+              {isRecurring && (
+                <div className="mt-6 bg-gray-50 rounded-lg p-5">
+                  <h4 className="text-md font-medium text-gray-900 mb-4">
+                    Recurring Options
+                  </h4>
+
+                  <div className="space-y-4">
+                    {/* End of Month Option */}
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="endOfMonth"
+                        id="endOfMonth"
+                        checked={endOfMonth}
+                        onChange={handleRecurrenceChange}
+                        className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor="endOfMonth"
+                        className="ml-3 block text-sm font-semibold text-gray-600"
+                      >
+                        Adjust for end of month dates (31st, 30th, 28th)
+                      </label>
+                    </div>
+
+                    {/* Recurrence Type Selection */}
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-600 mb-2">
+                        Recurrence Type
+                      </label>
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          <input
+                            type="radio"
+                            name="recurrenceType"
+                            id="endDateOption"
+                            value="endDate"
+                            checked={recurrenceType === 'endDate'}
+                            onChange={handleRecurrenceChange}
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                          />
+                          <label
+                            htmlFor="endDateOption"
+                            className="ml-3 block text-sm font-semibold text-gray-600"
+                          >
+                            End date
+                          </label>
+                        </div>
+
+                        {recurrenceType === 'endDate' && (
+                          <div className="ml-7">
+                            <label
+                              htmlFor="endDate"
+                              className="block text-sm font-semibold text-gray-600 mb-1"
+                            >
+                              End Date
+                            </label>
+                            <input
+                              type="date"
+                              name="endDate"
+                              id="endDate"
+                              value={endDate}
+                              onChange={handleRecurrenceChange}
+                              className="block w-full rounded-lg border border-gray-300 bg-white p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-all duration-200"
+                            />
+                          </div>
+                        )}
+
+                        <div className="flex items-center mt-2">
+                          <input
+                            type="radio"
+                            name="recurrenceType"
+                            id="countOption"
+                            value="count"
+                            checked={recurrenceType === 'count'}
+                            onChange={handleRecurrenceChange}
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                          />
+                          <label
+                            htmlFor="countOption"
+                            className="ml-3 block text-sm font-semibold text-gray-600"
+                          >
+                            Number of repetitions
+                          </label>
+                        </div>
+
+                        {recurrenceType === 'count' && (
+                          <div className="ml-7">
+                            <label
+                              htmlFor="repeatCount"
+                              className="block text-sm font-semibold text-gray-600 mb-1"
+                            >
+                              Number of Months
+                            </label>
+                            <input
+                              type="number"
+                              name="repeatCount"
+                              id="repeatCount"
+                              value={repeatCount}
+                              onChange={handleRecurrenceChange}
+                              min="1"
+                              className="block w-full rounded-lg border border-gray-300 bg-white p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-all duration-200"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -315,7 +486,7 @@ export default function TransactionForm({
           type="submit"
           className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
         >
-          {isEditing ? 'Update Transaction' : 'Create Transaction'}
+          Create Transaction{isRecurring ? 's' : ''}
         </button>
       </div>
     </form>
