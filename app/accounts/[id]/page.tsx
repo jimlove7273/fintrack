@@ -299,7 +299,7 @@ export default function AccountDetailsPage({
                 <select
                   value={recordsPerPage}
                   onChange={handleRecordsPerPageChange}
-                  className="block w-16 md:w-20 pl-2 pr-6 py-1 md:pl-3 md:pr-10 md:py-2 text-xs md:text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                  className="block w-16 md:w-24 pl-2 pr-6 py-1 md:pl-3 md:pr-8 md:py-2 text-xs md:text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
                 >
                   <option value={20}>20</option>
                   <option value={50}>50</option>
@@ -497,13 +497,13 @@ export default function AccountDetailsPage({
                       key={transaction.id}
                       className={transaction.isCleared ? 'bg-green-50' : ''}
                     >
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold">
                         {formatDate(new Date(transaction.date))}
                       </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold">
                         {transaction.checkNumber || '-'}
                       </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold">
                         {transaction.payee}
                       </td>
                       <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
@@ -530,7 +530,7 @@ export default function AccountDetailsPage({
                           ''
                         )}
                       </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold">
                         {formatCurrency(transaction.runningBalance)}
                       </td>
                       <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap">

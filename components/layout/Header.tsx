@@ -79,7 +79,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row h-screen bg-[#f3f4f4]">
       {/* Desktop Sidebar - hidden on mobile */}
       <div className="hidden md:flex flex-col w-64 bg-white shadow-md">
         <div className="flex items-center justify-center h-16 bg-indigo-600">
@@ -184,7 +184,9 @@ export default function Header({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="hidden md:flex justify-end items-center p-4 bg-white shadow">
           <div className="flex items-center space-x-4">
-            <span className="text-gray-700">Hello, User</span>
+            <span className="text-sm text-shadow-amber-100 text-gray-700">
+              Hello, Admin
+            </span>
             <button
               onClick={logout}
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
