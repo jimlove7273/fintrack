@@ -279,7 +279,7 @@ export default function ReconciliationPage({
             </h2>
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center">
-                <span className="mr-2 text-xs md:text-sm text-gray-600">
+                <span className="mr-2 text-xs text-gray-600">
                   Show Cleared:
                 </span>
                 <label className="relative inline-flex items-center cursor-pointer">
@@ -289,11 +289,11 @@ export default function ReconciliationPage({
                     checked={showClearedOnly}
                     onChange={() => setShowClearedOnly(!showClearedOnly)}
                   />
-                  <div className="w-9 h-5 md:w-11 md:h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 md:after:h-5 md:after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                  <div className="w-7 h-4 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-indigo-600"></div>
                 </label>
               </div>
 
-              <div className="text-xs md:text-sm text-gray-600">
+              <div className="text-xs text-gray-600">
                 Selected: {selectedTransactions.length}
               </div>
             </div>

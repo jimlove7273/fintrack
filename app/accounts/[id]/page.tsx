@@ -278,9 +278,7 @@ export default function AccountDetailsPage({
             <h2 className="text-lg md:text-xl font-semibold">Transactions</h2>
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center">
-                <span className="mr-2 text-xs md:text-sm text-gray-600">
-                  Show All:
-                </span>
+                <span className="mr-2 text-xs text-gray-600">Show All:</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -288,7 +286,7 @@ export default function AccountDetailsPage({
                     checked={showAll}
                     onChange={() => setShowAll(!showAll)}
                   />
-                  <div className="w-9 h-5 md:w-11 md:h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 md:after:h-5 md:after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                  <div className="w-7 h-4 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-indigo-600"></div>
                 </label>
               </div>
 
@@ -451,27 +449,21 @@ export default function AccountDetailsPage({
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-red-600 uppercase tracking-wider bg-gray-50"
+                    className="px-4 py-2 md:px-6 md:py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
                   >
-                    Debit (-)
+                    Amount
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-green-600 uppercase tracking-wider bg-gray-50"
-                  >
-                    Credit (+)
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                    className="px-4 py-2 md:px-6 md:py-3 text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50 text-right"
                   >
                     Balance
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-2 md:px-6 md:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50"
+                    className="px-4 py-2 md:px-6 md:py-3 text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50 text-center"
                   >
-                    Status
+                    Cleared
                   </th>
                   <th
                     scope="col"
@@ -495,7 +487,7 @@ export default function AccountDetailsPage({
                   paginatedTransactions.map((transaction) => (
                     <tr
                       key={transaction.id}
-                      className={transaction.isCleared ? 'bg-green-50' : ''}
+                      className={transaction.isCleared ? 'bg-[#f5fcf8]' : ''}
                     >
                       <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold">
                         {formatDate(new Date(transaction.date))}
@@ -507,42 +499,34 @@ export default function AccountDetailsPage({
                         {transaction.payee}
                       </td>
                       <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
-                        {transaction.category}
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 border border-gray-200">
+                          {transaction.category}
+                        </span>
                       </td>
                       <td className="px-4 py-2 md:px-6 md:py-4 text-xs md:text-sm text-gray-500">
                         {transaction.description}
                       </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-right">
                         {transaction.debit > 0 ? (
-                          <span className="text-red-600">
+                          <span className="text-red-600 font-semibold">
                             {formatCurrency(transaction.debit)}
                           </span>
-                        ) : (
-                          ''
-                        )}
-                      </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
-                        {transaction.credit > 0 ? (
-                          <span className="text-green-600">
+                        ) : transaction.credit > 0 ? (
+                          <span className="text-green-600 font-semibold">
                             {formatCurrency(transaction.credit)}
                           </span>
-                        ) : (
-                          ''
-                        )}
+                        ) : null}
                       </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold">
+
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm text-[#0a0a0a] font-semibold text-right">
                         {formatCurrency(transaction.runningBalance)}
                       </td>
-                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap">
-                        <span
-                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            transaction.isCleared
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-yellow-100 text-yellow-800'
-                          }`}
-                        >
-                          {transaction.isCleared ? 'Cleared' : 'Pending'}
-                        </span>
+                      <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap flex justify-center">
+                        {transaction.isCleared ? (
+                          <div className="w-3 h-3 bg-[#39e3a9] rounded-sm"></div>
+                        ) : (
+                          <div className="w-3 h-3 border-2 border-gray-400 rounded-sm"></div>
+                        )}
                       </td>
                       <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
                         <button
