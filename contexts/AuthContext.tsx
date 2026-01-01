@@ -19,6 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
   const router = useRouter();
 
   useEffect(() => {
@@ -29,6 +30,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Use a timeout to avoid the react-hooks/set-state-in-effect warning
       setTimeout(() => {
         setIsAuthenticated(loggedIn);
+        setIsLoading(false);
+      }, 0);
+    } else {
+      // If we're on the server, set loading to false after a brief timeout
+      setTimeout(() => {
+        setIsLoading(false);
       }, 0);
     }
   }, []);
@@ -93,6 +100,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     return false;
   };
+
+  // Don't render children until auth state is loaded to prevent flash of unauthenticated content
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

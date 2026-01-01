@@ -14,6 +14,7 @@ import {
 } from '@/utils/calculations';
 import Link from 'next/link';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import Modal from '@/components/ui/modal';
 
 export default function ReconciliationPage({
   params,
@@ -32,6 +33,12 @@ export default function ReconciliationPage({
   );
   const [showClearedOnly, setShowClearedOnly] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  // Modal states
+  const [showMarkClearedModal, setShowMarkClearedModal] = useState(false);
+  const [showCompleteReconciliationModal, setShowCompleteReconciliationModal] =
+    useState(false);
+  const [showMismatchModal, setShowMismatchModal] = useState(false);
 
   // Find the account
   const account = accountService.getAccountById(accountId);
@@ -79,9 +86,23 @@ export default function ReconciliationPage({
     transactions,
   );
 
+  // Calculate book balance with selected transactions marked as cleared
+  const bookBalanceWithSelected = transactions.reduce(
+    (balance, transaction) => {
+      if (
+        transaction.isCleared ||
+        selectedTransactions.includes(transaction.id)
+      ) {
+        return balance + transaction.credit - transaction.debit;
+      }
+      return balance;
+    },
+    account.initialBalance,
+  );
+
   // Calculate difference
   const difference = statementBalance
-    ? parseFloat(statementBalance) - bookBalance
+    ? parseFloat(statementBalance) - bookBalanceWithSelected
     : 0;
 
   // Handle transaction selection
@@ -116,8 +137,14 @@ export default function ReconciliationPage({
     // Clear selection
     setSelectedTransactions([]);
 
-    // Show confirmation
-    alert(`${selectedTransactions.length} transactions marked as cleared`);
+    // Close modal and show confirmation
+    setShowMarkClearedModal(false);
+  };
+
+  // Complete reconciliation
+  const completeReconciliation = () => {
+    setShowCompleteReconciliationModal(false);
+    router.push(`/accounts/${accountId}`);
   };
 
   return (
@@ -186,10 +213,12 @@ export default function ReconciliationPage({
             <div className="border border-gray-200 rounded-lg p-4">
               <h3 className="font-medium text-gray-700 mb-2">Book Balance</h3>
               <p className="text-xl md:text-2xl font-bold text-indigo-600">
-                {formatCurrency(bookBalance)}
+                {formatCurrency(bookBalanceWithSelected)}
               </p>
               <p className="text-xs text-gray-500 mt-1">
-                Based on cleared transactions
+                {selectedTransactions.length > 0
+                  ? `Updated with ${selectedTransactions.length} selected transaction(s)`
+                  : 'Based on cleared transactions'}
               </p>
             </div>
 
@@ -228,7 +257,7 @@ export default function ReconciliationPage({
           {/* Action Buttons */}
           <div className="mt-4 md:mt-6 flex flex-wrap gap-2 md:gap-3">
             <button
-              onClick={markAsCleared}
+              onClick={() => setShowMarkClearedModal(true)}
               disabled={selectedTransactions.length === 0}
               className={`px-3 py-2 md:px-4 md:py-2 rounded-md font-medium text-sm md:text-base ${
                 selectedTransactions.length === 0
@@ -252,11 +281,9 @@ export default function ReconciliationPage({
             <button
               onClick={() => {
                 if (difference === 0) {
-                  alert('Reconciliation complete! All balances match.');
+                  setShowCompleteReconciliationModal(true);
                 } else {
-                  alert(
-                    'Please reconcile all transactions to match the statement balance.',
-                  );
+                  setShowMismatchModal(true);
                 }
               }}
               className={`px-3 py-2 md:px-4 md:py-2 rounded-md font-medium text-sm md:text-base ${
@@ -446,6 +473,83 @@ export default function ReconciliationPage({
             </table>
           </div>
         </div>
+
+        {/* Mark as Cleared Modal */}
+        <Modal
+          isOpen={showMarkClearedModal}
+          onClose={() => setShowMarkClearedModal(false)}
+          title="Confirm Marking Transactions as Cleared"
+        >
+          <p className="text-gray-700">
+            Are you sure you want to mark{' '}
+            <strong>{selectedTransactions.length}</strong> transaction(s) as
+            cleared?
+          </p>
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              onClick={() => setShowMarkClearedModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              onClick={markAsCleared}
+            >
+              Confirm
+            </button>
+          </div>
+        </Modal>
+
+        {/* Complete Reconciliation Modal */}
+        <Modal
+          isOpen={showCompleteReconciliationModal}
+          onClose={() => setShowCompleteReconciliationModal(false)}
+          title="Complete Reconciliation"
+        >
+          <p className="text-gray-700">
+            Reconciliation complete! All balances match.
+          </p>
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              onClick={() => setShowCompleteReconciliationModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              onClick={completeReconciliation}
+            >
+              Go to Account
+            </button>
+          </div>
+        </Modal>
+
+        {/* Mismatch Warning Modal */}
+        <Modal
+          isOpen={showMismatchModal}
+          onClose={() => setShowMismatchModal(false)}
+          title="Reconciliation Not Complete"
+        >
+          <p className="text-gray-700">
+            The difference is not zero. Please reconcile all transactions to
+            match the statement balance.
+          </p>
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              onClick={() => setShowMismatchModal(false)}
+            >
+              OK
+            </button>
+          </div>
+        </Modal>
       </div>
     </ProtectedRoute>
   );
