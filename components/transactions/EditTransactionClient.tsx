@@ -87,7 +87,7 @@ export default function EditTransactionClient({
         {/* Account Info */}
         <div className="px-6 py-4 bg-gray-50 rounded-b-xl">
           <div className="flex items-center">
-            <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+            <div className="shrink-0 h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
               <svg
                 className="h-6 w-6 text-indigo-600"
                 fill="none"

@@ -502,7 +502,7 @@ export default function AccountPage({
                 paginatedTransactions.map((transaction) => (
                   <tr
                     key={transaction.id}
-                    className={transaction.isCleared ? 'bg-green-50' : ''}
+                    // className={transaction.isCleared ? '#f0fdf4' : ''}
                     style={
                       transaction.isCleared
                         ? { backgroundColor: '#f0fdf4' }
